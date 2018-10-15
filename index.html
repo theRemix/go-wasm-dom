@@ -1,0 +1,28 @@
+<!doctype html>
+<!--
+Copyright 2018 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Go Wasm Dom</title>
+</head>
+
+<body>
+<div id="app"></div>
+<script src="./js/wasm_exec.js"></script>
+<script>
+    (async () => {
+        const go = new Go();
+        const response = await fetch("./js/main.wasm");
+        const buffer = await response.arrayBuffer();
+        const obj = await WebAssembly.instantiate(buffer, go.importObject);
+        await go.run(obj.instance);
+    })();
+</script>
+</body>
+
+</html>
