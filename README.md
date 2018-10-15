@@ -1,13 +1,13 @@
-# WASM Dom in go
-
 ![Web Assembly](https://cdn-images-1.medium.com/max/400/1*fb19K-mU-ipu0NRpc_p2pA.png)
 
-# Requirements
+### [Live demo : https://theremix.github.io/go-wasm-dom](https://theremix.github.io/go-wasm-dom/index.html)
+
+## Requirements
 
 - go >= 1.11
 - nodejs
 
-# Building
+## Building
 
 ```sh
 make
@@ -19,7 +19,7 @@ watch and build with [entr](http://www.entrproject.org/)
 ls *.go | entr make
 ```
 
-# Running
+## Running
 
 You probably have python
 
