@@ -73,22 +73,47 @@ func main() {
 	app.AppendChild(listContainer)
 
 	listHeading := dom.Doc.CreateElement("h2")
-	listHeading.SetTextContent("List ")
+	listHeading.SetTextContent("List of " + strconv.Itoa(listChildCount) + " items rendered with Go wasm")
 	listHeading.SetAttribute("class", "subtitle")
 	listContainer.AppendChild(listHeading)
 
-	renderListBtn := dom.Doc.NewButton("Render list of " + strconv.Itoa(listChildCount) + " items")
+	renderListBtn := dom.Doc.NewButton("Render items with Go")
 	renderListBtn.SetAttribute("class", "button is-success is-rounded")
 	listContainer.AppendChild(renderListBtn)
 
 	listUl := dom.Doc.CreateElement("ul")
-	listUl.SetAttribute("id", "list-demo-container")
+	listUl.SetAttribute("class", "list-demo-container")
 	listContainer.AppendChild(listUl)
 
 	renderCh := make(chan int, 1)
 	renderListBtn.OnClick(func(_ dom.Event) {
 		renderCh <- listChildCount
 	})
+
+	// Vanilla JS List Demo
+
+	vanillaListContainer := dom.Doc.CreateElement("div")
+	vanillaListContainer.SetAttribute("class", "section")
+	app.AppendChild(vanillaListContainer)
+
+	vanillaListHeading := dom.Doc.CreateElement("h2")
+	vanillaListHeading.SetTextContent("List of " + strconv.Itoa(listChildCount) + " items rendered with Vanilla JS")
+	vanillaListHeading.SetAttribute("class", "subtitle")
+	vanillaListContainer.AppendChild(vanillaListHeading)
+
+	vanillaFlameChartContainer := dom.Doc.CreateElement("div")
+	vanillaFlameChartContainer.SetAttribute("id", "vanilla-flame-chart-container")
+	app.AppendChild(vanillaFlameChartContainer)
+
+	vanillaRenderListBtn := dom.Doc.NewButton("Render items with JS")
+	vanillaRenderListBtn.SetAttribute("class", "button is-success is-rounded")
+	vanillaRenderListBtn.SetAttribute("onClick", "renderVanilla("+strconv.Itoa(listChildCount)+")")
+	vanillaListContainer.AppendChild(vanillaRenderListBtn)
+
+	vanillaListUl := dom.Doc.CreateElement("ul")
+	vanillaListUl.SetAttribute("id", "vanilla-list-demo-container")
+	vanillaListUl.SetAttribute("class", "list-demo-container")
+	vanillaListContainer.AppendChild(vanillaListUl)
 
 	// Loop
 
@@ -106,7 +131,6 @@ func main() {
 			for i := 1; i <= count; i++ {
 				listUl.AppendChild(createChildEl(i))
 			}
-
 		}
 	}
 
